@@ -194,8 +194,7 @@ $$
 在模型架构固定时，解码逐 Token 进行，且每个 Token 的处理时延较为稳定。因此，总解码时间与输出长度近似成正比，这使预测长度 $\hat{L}_i^{\mathrm{up}}$ 可以作为调度决策中执行时长 $T(J_i)$ 的实用代理，即 $T(J_i)\propto\hat{L}_i^{\mathrm{up}}$。每个解码器维护一个就绪队列 $Q_k$，并按照 $\hat{L}_i^{\mathrm{up}}$ 动态重排：
 
 $$
-
-\mathrm{Order}(Q_k) = \underset{J_i \in Q_k}{\mathrm{arg\,sort}}\left(\hat{L}_i^{\mathrm{up}}\right). \tag{7}
+\mathrm{Order}(Q_k) = \underset{J_i \in Q_k}{\mathrm{arg\,sort}}\left(\hat{L}_i^{\mathrm{up}}\right).
 $$
 
 为避免请求饥饿，MAPS 设置最大等待时间约束：等待时间超过预设阈值的请求会被提升优先级。附录 E 分析了该阈值的敏感性。本地调度器在优先处理  $\hat{L}_i^{\mathrm{up}}$  较小的作业的同时限制最长等待时间，从而在不使长生成请求饥饿的前提下降低平均完成时间。
